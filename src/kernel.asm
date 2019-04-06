@@ -24,4 +24,4 @@ end:
     jmp end
 
 
-msg00: db 'Kernel is speaking !', 10, 0
+msg00: db 'Kernel loaded', 10, 0

@@ -31,7 +31,7 @@
 00000000000i[      ]   Sound support: no
 00000000000i[      ]   USB support: no
 00000000000i[      ]   VGA extension support: vbe
-00000000000i[MEM0  ] allocated memory at 0x7f16bbd47010. after alignment, vector=0x7f16bbd48000
+00000000000i[MEM0  ] allocated memory at 0x7fd31f907010. after alignment, vector=0x7fd31f908000
 00000000000i[MEM0  ] 32,00MB
 00000000000i[MEM0  ] mem block size = 0x00020000, blocks=256
 00000000000i[MEM0  ] rom at 0xfffe0000/131072 ('/usr/local/share/bochs/BIOS-bochs-latest')
@@ -41,7 +41,7 @@
 00000000000i[DEV   ] PIIX3 PCI-to-ISA bridge present at device 1, function 0
 00000000000i[PLUGIN] init_dev of 'cmos' plugin device by virtual method
 00000000000i[CMOS  ] Using local time for initial clock
-00000000000i[CMOS  ] Setting initial clock to: Sat Apr  6 10:56:51 2019 (time0=1554541011)
+00000000000i[CMOS  ] Setting initial clock to: Sat Apr  6 14:08:58 2019 (time0=1554552538)
 00000000000i[PLUGIN] init_dev of 'dma' plugin device by virtual method
 00000000000i[DMA   ] channel 4 used by cascade
 00000000000i[PLUGIN] init_dev of 'pic' plugin device by virtual method
@@ -56,7 +56,7 @@
 00000000000i[MEM0  ] rom at 0xc0000/41472 ('/usr/local/share/bochs/VGABIOS-lgpl-latest')
 00000000000i[PLUGIN] init_dev of 'floppy' plugin device by virtual method
 00000000000i[DMA   ] channel 2 used by Floppy Drive
-00000000000i[FLOPPY] fd0: 'build/boot.img' ro=0, h=2,t=80,spt=18
+00000000000i[FLOPPY] fd0: 'dist/floppy.img' ro=0, h=2,t=80,spt=18
 00000000000i[FLOPPY] Using boot sequence floppy, none, none
 00000000000i[FLOPPY] Floppy boot signature check is enabled
 00000000000i[PLUGIN] init_dev of 'acpi' plugin device by virtual method
@@ -144,7 +144,7 @@
 00000322261i[BIOS  ] ram_end=32MB
 00000362829i[BIOS  ] Found 1 cpu(s)
 00000376413i[BIOS  ] bios_table_addr: 0x000f9cd8 end=0x000fcc00
-00000690900i[XGUI  ] charmap update. Font is 9 x 16
+00000689104i[XGUI  ] charmap update. Font is 9 x 16
 00000704208i[PCI   ] i440FX PMC write to PAM register 59 (TLB Flush)
 00001032137i[P2ISA ] PCI IRQ routing: PIRQA# set to 0x0b
 00001032156i[P2ISA ] PCI IRQ routing: PIRQB# set to 0x09
@@ -177,27 +177,27 @@
 00001528689i[BXVGA ] VBE known Display Interface b0c5
 00001531614i[VBIOS ] VBE Bios $Id: vbe.c,v 1.65 2014/07/08 18:02:25 vruppert Exp $
 00014040187i[BIOS  ] Booting from 0000:7c00
-00060658616i[XGUI  ] charmap update. Font is 9 x 16
-00309952000p[XGUI  ] >>PANIC<< POWER button turned off.
-00309952000i[CPU0  ] CPU is in real mode (active)
-00309952000i[CPU0  ] CS.mode = 16 bit
-00309952000i[CPU0  ] SS.mode = 16 bit
-00309952000i[CPU0  ] EFER   = 0x00000000
-00309952000i[CPU0  ] | EAX=00008000  EBX=00000000  ECX=00090002  EDX=00000000
-00309952000i[CPU0  ] | ESP=0000f000  EBP=00000000  ESI=000e0042  EDI=0000ffac
-00309952000i[CPU0  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf ZF af PF cf
-00309952000i[CPU0  ] | SEG sltr(index|ti|rpl)     base    limit G D
-00309952000i[CPU0  ] |  CS:0100( 0004| 0|  0) 00001000 0000ffff 0 0
-00309952000i[CPU0  ] |  DS:0100( 0005| 0|  0) 00001000 0000ffff 0 0
-00309952000i[CPU0  ] |  SS:8000( 0005| 0|  0) 00080000 0000ffff 0 0
-00309952000i[CPU0  ] |  ES:0100( 0005| 0|  0) 00001000 0000ffff 0 0
-00309952000i[CPU0  ] |  FS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
-00309952000i[CPU0  ] |  GS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
-00309952000i[CPU0  ] | EIP=0000002a (0000002a)
-00309952000i[CPU0  ] | CR0=0x60000010 CR2=0x00000000
-00309952000i[CPU0  ] | CR3=0x00000000 CR4=0x00000000
-00309952000i[CPU0  ] 0x0000002a>> jmp .-2 (0x0000102a) : EBFE
-00309952000i[CMOS  ] Last time is 1554541088 (Sat Apr  6 10:58:08 2019)
-00309952000i[XGUI  ] Exit
-00309952000i[      ] restoring default signal behavior
-00309952000i[SIM   ] quit_sim called with exit code 1
+00024315756i[XGUI  ] charmap update. Font is 9 x 16
+00274460000p[XGUI  ] >>PANIC<< POWER button turned off.
+00274460000i[CPU0  ] CPU is in real mode (active)
+00274460000i[CPU0  ] CS.mode = 16 bit
+00274460000i[CPU0  ] SS.mode = 16 bit
+00274460000i[CPU0  ] EFER   = 0x00000000
+00274460000i[CPU0  ] | EAX=00008000  EBX=00000000  ECX=00090002  EDX=00000000
+00274460000i[CPU0  ] | ESP=0000f000  EBP=00000000  ESI=000e003b  EDI=0000ffac
+00274460000i[CPU0  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf ZF af PF cf
+00274460000i[CPU0  ] | SEG sltr(index|ti|rpl)     base    limit G D
+00274460000i[CPU0  ] |  CS:0100( 0004| 0|  0) 00001000 0000ffff 0 0
+00274460000i[CPU0  ] |  DS:0100( 0005| 0|  0) 00001000 0000ffff 0 0
+00274460000i[CPU0  ] |  SS:8000( 0005| 0|  0) 00080000 0000ffff 0 0
+00274460000i[CPU0  ] |  ES:0100( 0005| 0|  0) 00001000 0000ffff 0 0
+00274460000i[CPU0  ] |  FS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
+00274460000i[CPU0  ] |  GS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
+00274460000i[CPU0  ] | EIP=0000002a (0000002a)
+00274460000i[CPU0  ] | CR0=0x60000010 CR2=0x00000000
+00274460000i[CPU0  ] | CR3=0x00000000 CR4=0x00000000
+00274460000i[CPU0  ] 0x0000002a>> jmp .-2 (0x0000102a) : EBFE
+00274460000i[CMOS  ] Last time is 1554552606 (Sat Apr  6 14:10:06 2019)
+00274460000i[XGUI  ] Exit
+00274460000i[      ] restoring default signal behavior
+00274460000i[SIM   ] quit_sim called with exit code 1
