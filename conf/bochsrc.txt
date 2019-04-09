@@ -4,3 +4,4 @@ mouse: enabled=0
 log:         logs/bochs.log             # All errors and info logs will output to OSDev.log
 error:       action=report
 info:        action=report
+display_library: sdl2
