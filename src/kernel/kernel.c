@@ -1,20 +1,15 @@
-//#define VIDEO_MEMORY_ADDR 0xB8000
-extern void hello();
+#include "screen.h"
 
 void _start(void) {
-  hello();
-  // unsigned char * vram = ( unsigned char * ) VIDEO_MEMORY_ADDR;// + ( y * 80 + x );
-  //
-  // *(vram++) = 'H';
-  // *(vram++) = 0x57;
-  // *(vram++) = 'E';
-  // *(vram++) = 0x0A;
-  // *(vram++) = 'L';
-  // *(vram++) = 0x4E;
-  // *(vram++) = 'L';
-  // *(vram++) = 0x62;
-  // *(vram++) = 'O';
-  // *(vram++) = 0x0E;
+
+  clearscreen();
+
+  setCursor( 0, 0 );
+  print( "Loading kernel ...\0", COLOR_WHITE, COLOR_BLACK );
+  setCursor( 0, 1 );
+  print( "GDT ... loaded.\0", COLOR_WHITE, COLOR_BLACK );
+  setCursor( 0, 2 );
+  print( "IDT ... loaded.\0", COLOR_WHITE, COLOR_BLACK );
 
   while(1);
 

@@ -1,38 +1,53 @@
-#include "types.h"
+#include "screen.h"
 
 #define VIDEO_MEMORY_ADDR 0xB8000
 #define SCREEN_WITH       80
 #define SCREEN_HEIGHT     25
 
-void hello() {
+u8 cAttr = 0x0F;
+u8 cX    = 0;
+u8 cY    = 0;
 
-  unsigned char * vram = ( unsigned char * ) VIDEO_MEMORY_ADDR;// + ( y * 80 + x );
+void setAttributes( u8 forecolor, u8 backcolor ) {
+  cAttr = (backcolor << 4) | (forecolor & 0x0F);
+}
 
-  *(vram++) = 'H';
-  *(vram++) = 0x57;
-  *(vram++) = 'E';
-  *(vram++) = 0x0A;
-  *(vram++) = 'L';
-  *(vram++) = 0x4E;
-  *(vram++) = 'L';
-  *(vram++) = 0x62;
-  *(vram++) = 'O';
-  *(vram++) = 0x0E;
+void printc( u8 character ) {
+
+  //Selection de l'emplacement memoire ou ecrire
+  u8 * vram = ( u8 * ) VIDEO_MEMORY_ADDR + ( cY * ( SCREEN_WITH * 2 ) + ( cX * 2 ) );
+
+  //Ecriture
+  *vram     = character;
+  *(vram+1) = cAttr;
+
+  //Increment de cX, cY
+  cX++;
+  if ( cX >= SCREEN_WITH ) {
+    cY++;
+    cX = 0;
+  }
 
 }
 
-// note this example will always write to the top line of the screen
-void print( int colour, const char *string ) {
+void setCursor( u8 x, u8 y ) {
+  cX = x;
+  cY = y;
+}
 
-    unsigned char * vram = ( unsigned char * ) VIDEO_MEMORY_ADDR;// + ( y * 80 + x );
-    *vram = 'Z';
-    *(vram + 1) = 0x41;
-/*
-    volatile uint16_t * vram = ( volatile uint16_t * ) VIDEO_MEMORY_ADDR;
-
-    while( *string != 0 ) {
-        *vram++ = *string++;
-        *vram++ = colour;
+void clearscreen() {
+  for ( u8 x=0; x<SCREEN_WITH; x++ ) {
+    for ( u8 y=0; y<SCREEN_HEIGHT; y++ ) {
+      setCursor(x, y);
+      printc( ' ' );
     }
-*/
+  }
+}
+
+void print( u8 * string, u8 forecolor, u8 backcolor ) {
+  setAttributes(forecolor, backcolor);
+  while ( *string != 0 ) {
+    printc( (u8) *string );
+    string++;
+  }
 }
