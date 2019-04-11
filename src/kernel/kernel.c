@@ -1,5 +1,7 @@
 #include "../drivers/screen.h"
 
+int main();
+
 void _start(void) {
 
   cls();
@@ -10,7 +12,7 @@ void _start(void) {
   print( "IDT ... loaded.\n" );
 
   main();
-  
+
 }
 
 int main() {
