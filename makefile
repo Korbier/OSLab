@@ -1,5 +1,5 @@
 CC=gcc
-CC_FLAGS=-m32 -fno-pie -ffreestanding
+CC_FLAGS=-m32 -fno-pie -ffreestanding -Wall
 
 LD=ld
 LD_FLAGS= -m elf_i386 --oformat binary -Ttext 0x1000
@@ -11,8 +11,8 @@ DIR_SRC=src
 
 IMAGE=$(DIR_DIST)/os-image
 
-C_SOURCES = $(wildcard src/kernel/*.c src/drivers/*.c)
-C_HEADERS = $(wildcard src/kernel/*.h src/drivers/*.h)
+C_SOURCES = $(wildcard src/kernel/*.c src/libs/*.c src/drivers/*.c)
+C_HEADERS = $(wildcard src/kernel/*.h stc/libs/*.h src/drivers/*.h)
 
 OBJ = ${C_SOURCES:.c=.o}
 
@@ -35,4 +35,4 @@ $(DIR_BUILD)/kernel.bin: ${OBJ}
 
 clean:
 	rm -rf $(DIR_DIST)/* $(DIR_BUILD)/* $(DIR_LOG)/*
-	rm -rf $(DIR_SRC)/kernel/*.o $(DIR_SRC)/drivers/*.o
+	rm -rf $(DIR_SRC)/kernel/*.o $(DIR_SRC)/libs/*.o $(DIR_SRC)/drivers/*.o

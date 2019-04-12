@@ -1,7 +1,7 @@
 #ifndef _MYOS_SCEEN_
 #define _MYOS_SCEEN_
 
-#include "../kernel/types.h"
+#include "../libs/types.h"
 
 #define COLOR_BLACK         0x0
 #define COLOR_BLUE          0x1
@@ -21,15 +21,11 @@
 #define COLOR_WHITE         0xF
 
 extern void cursor( int8_t x, int8_t y );
+extern int8_t cursorX();
+extern int8_t cursorY();
 extern void style( int8_t foreground, int8_t background );
 extern void print( int8_t * string );
 extern void cls();
 extern void scroll();
-
-/*
-extern void setCursor( int8_t x, int8_t y );
-extern void clearscreen();
-extern void print( int8_t * string, int8_t forecolor, int8_t backcolor );
-*/
 
 #endif
