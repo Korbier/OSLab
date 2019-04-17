@@ -1,5 +1,5 @@
-#ifndef _MYOS_SCEEN_
-#define _MYOS_SCEEN_
+#ifndef _MYOS_SCREEN_
+#define _MYOS_SCREEN_
 
 #include "../libs/types.h"
 

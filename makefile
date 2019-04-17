@@ -1,8 +1,8 @@
-CC=gcc
+CC=$$TARGET-gcc
 CC_FLAGS=-m32 -fno-pie -ffreestanding -Wall
 
-LD=ld
-LD_FLAGS= -m elf_i386 --oformat binary -Ttext 0x1000
+LD=$$TARGET-ld
+LD_FLAGS=--oformat binary -Ttext 0x1000
 
 DIR_DIST=dist
 DIR_BUILD=build
@@ -11,15 +11,17 @@ DIR_SRC=src
 
 IMAGE=$(DIR_DIST)/os-image
 
-C_SOURCES = $(wildcard src/kernel/*.c src/libs/*.c src/drivers/*.c)
-C_HEADERS = $(wildcard src/kernel/*.h stc/libs/*.h src/drivers/*.h)
+C_SOURCES   = $(wildcard src/kernel/*.c src/libs/*.c src/drivers/*.c)
+C_HEADERS   = $(wildcard src/kernel/*.h stc/libs/*.h src/drivers/*.h)
+ASM_SOURCES = $(wildcard src/libs/*.asm)
 
-OBJ = ${C_SOURCES:.c=.o}
+OBJ     = ${C_SOURCES:.c=.o}
+ASM_OBJ = ${ASM_SOURCES:.asm=.o}
 
 all: $(IMAGE)
 
 run: all
-	bochs -q -rc conf/bochs-skip-debug.rc -qf conf/bochsrc.txt 'floppya: 1_44=$(IMAGE), status=inserted'
+	bochs -q  -qf conf/bochsrc.txt 'floppya: 1_44=$(IMAGE), status=inserted'
 
 $(IMAGE): $(DIR_BUILD)/boot.bin $(DIR_BUILD)/kernel.bin
 	cat $^ /dev/zero | dd of=$@ bs=512 count=2880 iflag=fullblock
@@ -27,8 +29,11 @@ $(IMAGE): $(DIR_BUILD)/boot.bin $(DIR_BUILD)/kernel.bin
 $(DIR_BUILD)/boot.bin: $(DIR_SRC)/boot/boot.asm
 	nasm -f bin -o $@ $^
 
-$(DIR_BUILD)/kernel.bin: ${OBJ}
+$(DIR_BUILD)/kernel.bin: ${OBJ} ${ASM_OBJ} 
 	$(LD) $(LD_FLAGS) $^ -o $@
+
+${ASM_OBJ}:$(ASM_SOURCES)
+	nasm -f elf -o $@ $^
 
 %.o:%.c
 	$(CC) $(CC_FLAGS) -c $< -o $@
