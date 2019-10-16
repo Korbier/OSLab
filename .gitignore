@@ -1,6 +1,4 @@
-build/*
 logs/*
-dist/*
 
 *.o
 *.bin
