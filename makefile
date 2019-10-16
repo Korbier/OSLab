@@ -1,8 +1,8 @@
-CC=$$TARGET-gcc
-CC_FLAGS=-m32 -fno-pie -ffreestanding -Wall
+CC=gcc
+CC_FLAGS=-m32 -nostdlib -static -fno-pie -ffreestanding -Wall
 
-LD=$$TARGET-ld
-LD_FLAGS=--oformat binary -Ttext 0x1000
+LD=ld
+LD_FLAGS=-m elf_i386 --oformat binary -Ttext 0x1000
 
 DIR_DIST=dist
 DIR_BUILD=build
