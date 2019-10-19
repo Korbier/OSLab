@@ -1,4 +1,5 @@
 #include "screen.h"
+#include "../libs/asm.h"
 
 #define VIDEO_MEMORY_ADDR 0xB8000
 #define SCREEN_WITH       80
@@ -10,16 +11,16 @@ int8_t cY    = 0;
 
 void printc( int8_t character );
 
-void cursor( int8_t x, int8_t y ) {
+void position( int8_t x, int8_t y ) {
   cX = x;
   cY = y;
 }
 
-int8_t cursorX() {
+int8_t positionX() {
   return cX;
 }
 
-int8_t cursorY() {
+int8_t positionY() {
   return cY;
 }
 
@@ -37,7 +38,7 @@ void print( int8_t * string ) {
 void cls() {
   for ( int8_t x=0; x<SCREEN_WITH; x++ ) {
     for ( int8_t y=0; y<SCREEN_HEIGHT; y++ ) {
-      cursor(x, y);
+      position(x, y);
       printc( 0x0 );
     }
   }
@@ -47,7 +48,7 @@ void scroll() {
 
 }
 
-extern void printc( int8_t character ) {
+void printc( int8_t character ) {
 
     //Selection de l'emplacement memoire ou ecrire
     int8_t * vram = ( int8_t * ) VIDEO_MEMORY_ADDR + ( cY * ( SCREEN_WITH * 2 ) + ( cX * 2 ) );
@@ -73,4 +74,17 @@ extern void printc( int8_t character ) {
       scroll();
     }
 
+}
+
+void moveCursor( uint8_t x, uint8_t y ) {
+  uint16_t c_pos;
+  c_pos = y * 80 + x;
+  outb(0x3d4, 0x0f);
+  outb(0x3d5, (uint8_t) c_pos);
+  outb(0x3d4, 0x0e);
+  outb(0x3d5, (uint8_t) (c_pos >> 8));
+}
+
+void showCursor() {
+  moveCursor(cX, cY);
 }

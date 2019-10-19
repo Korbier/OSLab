@@ -20,12 +20,16 @@
 #define COLOR_YELLOW        0xE
 #define COLOR_WHITE         0xF
 
-extern void cursor( int8_t x, int8_t y );
-extern int8_t cursorX();
-extern int8_t cursorY();
+extern void position( int8_t x, int8_t y );
+extern int8_t positionX();
+extern int8_t positionY();
 extern void style( int8_t foreground, int8_t background );
 extern void print( int8_t * string );
+extern void printc( int8_t character );
 extern void cls();
 extern void scroll();
+
+extern void moveCursor( uint8_t x, uint8_t y );
+extern void showCursor();
 
 #endif

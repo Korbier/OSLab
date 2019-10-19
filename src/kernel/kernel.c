@@ -4,7 +4,6 @@
 #include "../libs/asm.h"
 #include "../drivers/screen.h"
 
-
 int  main();
 
 void initGdt();
@@ -15,10 +14,10 @@ void _start(void) {
 
   cls();
 
-  cursor( 0, 0 );
+  position( 0, 0 );
   style( COLOR_WHITE, COLOR_BLACK );
 
-  print( "  MycOSe version 0.0.1\n" );
+  print( "  MYcOSe version 0.0.1\n" );
   print( "-------------------------------------------------------------------\n" );
   print( "  Loading : \n" );
 
@@ -26,27 +25,31 @@ void _start(void) {
   initIdt();
   initPic();
 
+  print( "-------------------------------------------------------------------\n" );
+  showCursor();
+
+  //Remise en route des interruptions
+  sti;
+  
   main();
 
 }
 
 int main() {
-
-    sti;
-    
+  
     while(1);
 
 }
 
 void printOK() {
- cursor( 50, cursorY() );
+ position( 50, positionY() );
  style( COLOR_LIGHT_GREEN, COLOR_BLACK );
  print("OK\n");
  style( COLOR_WHITE, COLOR_BLACK );
 }
 
 void printUnderDev() {
- cursor( 50, cursorY() );
+ position( 50, positionY() );
  style( COLOR_LIGHT_CYAN, COLOR_BLACK );
  print("Under development\n");
  style( COLOR_WHITE, COLOR_BLACK );

@@ -1,9 +1,14 @@
 loadKernel:
+  
   ; récupération de l'unité de boot
   mov [bootdrv], dl
+
   ; chargement du moyau
-  xor ax, ax        ; reset floppy disk function
-  int 0x13          ; call BIOS interrupt
+  reset:
+    xor ax, ax        ; reset floppy disk function
+    int 0x13          ; call BIOS interrupt
+    jc reset
+
   push es           ; Sauvegarde du registre es
   mov ax, BASE      ; we are going to read sector to into address 0x1000:0
   mov es, ax
@@ -15,6 +20,8 @@ loadKernel:
   mov dh, 0         ; head number
   mov dl, [bootdrv] ; drive number. Remember Drive 0 is floppy drive.
   int 0x13          ; call BIOS - Read the sector
+  jc reset
+  
   pop es ; restore es
   ret
 

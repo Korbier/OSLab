@@ -9,7 +9,7 @@ DIR_BUILD=build
 DIR_LOG=logs
 DIR_SRC=src
 
-IMAGE=$(DIR_DIST)/os-image
+IMAGE=$(DIR_DIST)/os-image.bin
 
 C_SOURCES   = $(wildcard src/kernel/*.c src/libs/*.c src/drivers/*.c)
 C_HEADERS   = $(wildcard src/kernel/*.h stc/libs/*.h src/drivers/*.h)
