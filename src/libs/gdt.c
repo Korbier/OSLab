@@ -27,10 +27,25 @@ void init_gdt_descriptor(uint32_t base, uint32_t limite, uint8_t acces, uint8_t 
  */
 void init_gdt() {
 
+	/* Premier descripteur null */
 	init_gdt_descriptor(0x0, 0x0,     0x0,  0x0,  &kgdt[0]);
+
+	/* Descripteurs de segments pour le noyau */
 	init_gdt_descriptor(0x0, 0xFFFFF, 0x9B, 0x0D, &kgdt[1]);
 	init_gdt_descriptor(0x0, 0xFFFFF, 0x93, 0x0D, &kgdt[2]);
 	init_gdt_descriptor(0x0, 0x0,     0x97, 0x0D, &kgdt[3]);
+
+	/* descripteur de segments en mode utilisateur */
+	init_gdt_descriptor(0x30000, 0x1, 0xFF, 0x0D, &kgdt[4]); /* ucode */
+	init_gdt_descriptor(0x30000, 0x1, 0xF3, 0x0D, &kgdt[5]); /* udata */
+	init_gdt_descriptor(0x0,     0x0, 0xF7, 0x0D, &kgdt[6]); /* ustack */
+
+	/* tss */
+	default_tss.debug_flag = 0x00;
+	default_tss.io_map     = 0x00;
+	default_tss.esp0       = 0x20000;
+	default_tss.ss0        = 0x18;
+	init_gdt_descriptor((uint32_t) & default_tss, 0x67, 0xE9, 0x00, &kgdt[7]);
 
 	kgdtr.limite = GDTSIZE * 8;
 	kgdtr.base   = GDTBASE;

@@ -1,4 +1,5 @@
 #include "clock.h"
+#include "screen.h"
 
 void clockInterrupt() {
     static int tic = 0;
@@ -7,5 +8,6 @@ void clockInterrupt() {
 	if (tic % 100 == 0) {
 		sec++;
 		tic = 0;
+		print(".");
 	}
 }

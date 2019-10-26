@@ -5,6 +5,7 @@
 void _asm_default_int(void);
 void _asm_irq_0(void);
 void _asm_irq_1(void);
+void _asm_syscalls(void);
 
 static struct idt_descriptor kidt[IDTSIZE]; /* Table de IDT */
 static struct idt_register   kidtr;         /* Registre IDTR */
@@ -34,8 +35,9 @@ void init_idt() {
 		init_idt_descriptor(0x08, (uint32_t) _asm_default_int, INTGATE, &kidt[i]);
 	}
 
-	init_idt_descriptor(0x08, (uint32_t) _asm_irq_0, INTGATE, &kidt[32]);	/* horloge */
-	init_idt_descriptor(0x08, (uint32_t) _asm_irq_1, INTGATE, &kidt[33]);	/* clavier */
+	init_idt_descriptor(0x08, (uint32_t) _asm_irq_0,    INTGATE, &kidt[32]); /* horloge */
+	init_idt_descriptor(0x08, (uint32_t) _asm_irq_1,    INTGATE, &kidt[33]); /* clavier */
+	init_idt_descriptor(0x08, (uint32_t) _asm_syscalls, 0xEF00,  &kidt[48]); /* appels systeme - int 0x30 */
 
 	/* Initialisation de la structure pour IDTR */
 	kidtr.limite = IDTSIZE * 8;
