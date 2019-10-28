@@ -24,8 +24,8 @@ extern void position( int8_t x, int8_t y );
 extern int8_t positionX();
 extern int8_t positionY();
 extern void style( int8_t foreground, int8_t background );
-extern void print( int8_t * string );
-extern void printc( int8_t character );
+extern void print( char * string );
+extern void printc( char character );
 extern void cls();
 extern void scroll();
 

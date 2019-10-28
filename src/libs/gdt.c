@@ -27,6 +27,11 @@ void init_gdt_descriptor(uint32_t base, uint32_t limite, uint8_t acces, uint8_t 
  */
 void init_gdt() {
 
+	default_tss.debug_flag = 0x00;
+	default_tss.io_map     = 0x00;
+	default_tss.esp0       = 0x20000;
+	default_tss.ss0        = 0x18;
+	
 	/* Premier descripteur null */
 	init_gdt_descriptor(0x0, 0x0,     0x0,  0x0,  &kgdt[0]);
 
@@ -41,10 +46,6 @@ void init_gdt() {
 	init_gdt_descriptor(0x0,     0x0, 0xF7, 0x0D, &kgdt[6]); /* ustack */
 
 	/* tss */
-	default_tss.debug_flag = 0x00;
-	default_tss.io_map     = 0x00;
-	default_tss.esp0       = 0x20000;
-	default_tss.ss0        = 0x18;
 	init_gdt_descriptor((uint32_t) & default_tss, 0x67, 0xE9, 0x00, &kgdt[7]);
 
 	kgdtr.limite = GDTSIZE * 8;

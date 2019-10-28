@@ -3,7 +3,9 @@
 
 #define IDTBASE  0x800		/* addr. physique ou doit resider la IDT */
 #define IDTSIZE  0xFF		/* nombre max. de descripteurs dans la table */
+
 #define INTGATE  0x8E00		/* utilise pour gerer les interruptions */
+#define TRAPGATE 0xEF00		/* utilise pour faire des appels systemes */
 
 extern void init_idt();
 

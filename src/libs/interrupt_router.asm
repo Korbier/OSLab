@@ -1,5 +1,5 @@
-extern isr_default_int, isr_clock_int, isr_kbd_int, do_syscall_int
-global _asm_default_int, _asm_irq_0, _asm_irq_1, _asm_syscalls
+extern isr_default_int, isr_GP_exc, isr_clock_int, isr_kbd_int, syscalls
+global _asm_default_int, _asm_exc_GP, _asm_irq_0, _asm_irq_1, _asm_syscalls
 
 %macro  SAVE_REGS 0
         pushad
@@ -30,6 +30,13 @@ _asm_default_int:
 	RESTORE_REGS
 	iret
 
+_asm_exc_GP:
+	SAVE_REGS
+	call isr_GP_exc
+	RESTORE_REGS
+	add esp,4
+	iret
+
 ; Encapsulation assembleur de l'appel a la methode C isr_clock_int car en C, on ne peut pas appeler iret
 _asm_irq_0:
 	SAVE_REGS
@@ -52,9 +59,7 @@ _asm_irq_1:
 _asm_syscalls:
 	SAVE_REGS
 	push eax
-	call do_syscall_int
+	call syscalls
 	pop eax
-	mov al,0x20 ; Ces deux lignes signifient au controlleur
-	out 0x20,al ; que l'interruption est traité
 	RESTORE_REGS
 	iret

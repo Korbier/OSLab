@@ -22,21 +22,4 @@
 	_v; \
 })
 
-#define switchToUserTask(esp0) ({ \
-	asm("cli \n \
-		push $0x33 \n \
-		push $0x30000 \n \
-		pushfl \n \
-		popl %%eax \n \
-		orl $0x200, %%eax \n \
-		and $0xFFFFBFFF, %%eax \n \
-		push %%eax \n \
-		push $0x23 \n \
-		push $0x0 \n \
-		movl $0x20000, %0 \n \
-		movw $0x2B, %%ax \n \
-		movw %%ax, %%ds \n \
-		iret":"=m"(esp0):); \
-})
-
 #endif
